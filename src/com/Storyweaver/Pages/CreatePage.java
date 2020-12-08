@@ -113,7 +113,7 @@ public class CreatePage extends BasePage {
 	}
 			
 	public void add_Image_to_Page(){
-		HomePage.wait(driver,Select_Image,10);
+		HomePage.wait(driver,Select_Image,20);
 		HomePage.mouse_Hover(Select_Image);
 	    Add_to_Page.click();
 	    Save_Image.click();
@@ -130,6 +130,7 @@ public class CreatePage extends BasePage {
 	public boolean verify_Image_Drawer() throws InterruptedException{
 		HomePage.wait_clickable(driver, Select_front_Cover_Page,5);
 		Select_front_Cover_Page.click();
+		HomePage.wait_clickable(driver, Add_Image,5);
 		Add_Image.click();
 		HomePage.wait(driver,Image_Drawer,5);
 		return Image_Drawer.isDisplayed();
@@ -178,7 +179,7 @@ public class CreatePage extends BasePage {
 		Close_Notification.click();
 		driver.navigate().refresh();
 		driver.navigate().refresh();
-		HomePage.scroll_Down(1200);
+		HomePage.scroll_Down(1000);
 		New_Arrivals.click();
 		if(Verify_Title.getText().equalsIgnoreCase(Title)){
 			System.out.println("Published story: "+Title+" is available in New Arrivals");

@@ -40,7 +40,7 @@ public class Offline_Library extends BasePage {
 	
 	 public void click_On_Save_to_OL(){
 		 Save_to_OL.click();
-		 HomePage.wait(driver,Delete_from_OL,20);
+		 HomePage.wait(driver,Delete_from_OL,25);
 	 }
 	 
 	 public boolean Delete_from_OL_button(){

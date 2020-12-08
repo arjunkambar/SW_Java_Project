@@ -6,7 +6,8 @@
       <class name="com.Storyweaver.Testcases.TestCases">
         <methods>
           <include name="setUp"/>
-          <include name="create_Page"/>
+          <include name="teardown"/>
+          <include name="image_Page"/>
         </methods>
       </class> <!-- com.Storyweaver.Testcases.TestCases -->
     </classes>

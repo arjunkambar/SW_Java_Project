@@ -72,14 +72,14 @@ public class ReadPage extends BasePage{
 		return filters.size()==5;
 	 }
 	 
-	 public boolean is_Read_Page(){ 
+	 public boolean is_Read_Page(String BaseURL){ 
 			return driver.getCurrentUrl().
-			equals("https://dev.pbees.party/stories?sort=Ratings");
+			equals(BaseURL+"stories?sort=Ratings");
 		}
 	 
-	 public boolean is_Readalong_Page(){ 
+	 public boolean is_Readalong_Page(String BaseURL){ 
 			return driver.getCurrentUrl().
-			equals("https://dev.pbees.party/audios?isAudio=true&sort=Ratings&story_type=audio");
+			equals(BaseURL+"audios?isAudio=true&sort=Ratings&story_type=audio");
 		}
 	 
 	 public boolean filters() throws InterruptedException{

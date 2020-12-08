@@ -9,15 +9,16 @@ import com.Storyweaver.Pages.BasePage;
 import com.Storyweaver.Pages.Bookshelf;
 import com.Storyweaver.Pages.CreatePage;
 import com.Storyweaver.Pages.HomePage;
+import com.Storyweaver.Pages.ImagePage;
 import com.Storyweaver.Pages.LoginPage;
 import com.Storyweaver.Pages.Offline_Library;
 import com.Storyweaver.Pages.ReadPage;
 
 public class TestCases extends BasePage{
-	String userid="arjun@yopmail.com";
+	String userid="arjun2@yopmail.com";
 	String pass="password";
 	String browser="chrome";
-	String BaseURL="https://dev.pbees.party/";
+	String BaseURL="https://feature2.pbees.party/";
 	
 	HomePage homepage;
 	LoginPage loginpage;
@@ -25,6 +26,7 @@ public class TestCases extends BasePage{
 	Bookshelf bookshelf;
 	Offline_Library offline_lib;
 	CreatePage createpage;
+	ImagePage imagepage;
 	SoftAssert soft=new SoftAssert();
 	 
     @BeforeTest
@@ -53,12 +55,12 @@ public class TestCases extends BasePage{
     }
 
 //Read Page
-    @Test(priority=3)
+    //@Test(priority=3)
     public void read_Page() throws InterruptedException{
     	homepage=new HomePage();
     	readpage=new ReadPage();
     	readpage.mouse_hover("read");
-    	soft.assertTrue(readpage.is_Read_Page(),"Not Readpage");
+    	soft.assertTrue(readpage.is_Read_Page(BaseURL),"Not Readpage");
     	soft.assertTrue(readpage.filters_count(), 
     			"filter count is not equal to 5");
     	//soft.assertTrue(readpage.filters());
@@ -67,13 +69,13 @@ public class TestCases extends BasePage{
     	soft.assertTrue(readpage.SortBy_Options());
     	readpage.select_First_Story_Card();
     	HomePage.scroll_Down(300);
-    	//soft.assertTrue(readpage.read_a_Story_and_Verify_Count("Read"),
-    	//		"Read count is not getting increased");
+    	soft.assertTrue(readpage.read_a_Story_and_Verify_Count("Read"),
+    			"Read count is not getting increased");
     	soft.assertAll();
     }
     
 //Add to My Bookshelf
-    @Test(priority=4)
+    //@Test(priority=4)
     public void add_to_My_Bookshelf() throws InterruptedException{
     	homepage=new HomePage();
     	bookshelf=new Bookshelf();
@@ -98,7 +100,7 @@ public class TestCases extends BasePage{
     }
        	
 //Save to Offline Library
-    @Test(priority=5)
+    //@Test(priority=5)
     public void save_to_OL() throws InterruptedException{
     	homepage=new HomePage();
     	offline_lib=new Offline_Library();
@@ -106,6 +108,7 @@ public class TestCases extends BasePage{
     	readpage.select_First_Story_Card();
     	String Title=readpage.get_Story_Title();
     	HomePage.scroll_Down(500);
+    	Thread.sleep(1000);
     	offline_lib.click_On_Save_to_OL();
     	if(homepage.is_Guest_User()==true){
     		Assert.assertTrue(bookshelf.login_Popup());}
@@ -120,7 +123,7 @@ public class TestCases extends BasePage{
     	soft.assertTrue(offline_lib.verify_Story_in_offline_library(Title),
     			Title+ " story is not displaying in OL");
     	Thread.sleep(2000);
-    	soft.assertTrue(offline_lib.notification());
+    	//soft.assertTrue(offline_lib.notification());
     	offline_lib.delete_Story();
     	Thread.sleep(1000);
     	soft.assertFalse(offline_lib.verify_Story_in_offline_library(Title),
@@ -129,12 +132,12 @@ public class TestCases extends BasePage{
     }
     
 //Readalong Page
-    @Test(priority=6)
+    //@Test(priority=6)
     public void readalong_Page() throws InterruptedException{
     	homepage=new HomePage();
     	readpage=new ReadPage();
     	readpage.mouse_hover("readalong");
-    	soft.assertTrue(readpage.is_Readalong_Page(),"Not Readalong Page");
+    	soft.assertTrue(readpage.is_Readalong_Page(BaseURL),"Not Readalong Page");
     	soft.assertTrue(readpage.filters_count(), 
     			"filter count is not equal to 5");
     	soft.assertTrue(readpage.filters());
@@ -149,7 +152,7 @@ public class TestCases extends BasePage{
      }
 
 //Create Page
-    @Test(priority=7)
+    //@Test(priority=7)
     public void create_Page() throws InterruptedException{
     	createpage=new CreatePage();
     	homepage.create_Page();
@@ -158,9 +161,9 @@ public class TestCases extends BasePage{
     		System.out.println("Login to SW");}
     	soft.assertTrue(createpage.verify_Create_Book_Page(),
     			"Create New Book Popup is not coming up");
-    	String Langauge="English";
+    	String Langauge="Acholi";
     	String Level="level 1:";
-    	String Orientation="vertical";
+    	String Orientation="horizontal";
     	createpage.enter_Book_Details(Langauge, Level, Orientation);
     	createpage.add_Image_to_Page();
     	soft.assertFalse(createpage.is_Image_Added_to_Page(),"Image is not added to page");
@@ -174,6 +177,19 @@ public class TestCases extends BasePage{
     	soft.assertAll();
     }
 
+//Image Page    
+    @Test(priority=8)
+    public void image_Page() throws InterruptedException{
+    	homepage=new HomePage();
+    	imagepage=new ImagePage();
+    	homepage.Image_Page();
+    	soft.assertTrue(imagepage.is_Image_Page(BaseURL),"Not Image Page");
+    	soft.assertTrue(imagepage.filters_Count(),"Filters count is not 3");
+    	soft.assertTrue(imagepage.Filters());
+    	soft.assertTrue(imagepage.sort_By(),"Sort By count is not 4");
+    	soft.assertAll();
+    }
+    
     @AfterSuite
     public void teardown(){
     	homepage.sing_Out();

@@ -14,7 +14,7 @@ public class HomePage extends BasePage {
 	public HomePage() {
 		PageFactory.initElements(driver,this);
 	}
-	@FindBy(className="pb-site-nav-link__title")
+	@FindBy(xpath="//span[@class='pb-site-nav-link__title']")
 	 WebElement SignIn;
 	@FindBy(xpath="//a[text()='Sign Out']")
 	WebElement SignOut;
@@ -42,6 +42,8 @@ public class HomePage extends BasePage {
     WebElement Offline_Library;
     @FindBy(xpath="//span[text()='Create']")
 	WebElement Create_Button;
+    @FindBy(xpath="//span[text()='Images']")
+    WebElement Image_Page;
 	
 	public boolean is_Home_Page(String BaseURL){ 
 		return driver.getCurrentUrl().equals(BaseURL);
@@ -105,6 +107,9 @@ public class HomePage extends BasePage {
 		actions.moveToElement(target).perform();
 	   }
 	
+	public void Image_Page(){
+		Image_Page.click();
+	   } 
 	
 	
 	
